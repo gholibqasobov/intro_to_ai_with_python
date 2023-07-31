@@ -6,6 +6,13 @@ for i in range(4):
     for color in colors:
         symbols.append(Symbol(f"{color}{i}"))
 
+    """
+    red0
+    blue1
+    green2
+    yellow3
+    """
+
 knowledge = And()
 
 # Each color has a position.
