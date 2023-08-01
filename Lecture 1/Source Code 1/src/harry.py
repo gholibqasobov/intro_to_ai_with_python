@@ -11,5 +11,5 @@ knowledge = And(
     dumbledore
 )
 # model = {'hagrid': True, 'rain': True}
-# print(model_check(knowledge, rain))
+print(model_check(knowledge, rain))
 # print(And(hagrid, rain).symbols())
