@@ -33,8 +33,6 @@ knowledge1 = And(
     Not(And(AKnight, AKnave)),
     Or(BKnight, BKnave),
     Not(And(BKnight, BKnave)),
-    Or(AKnight, BKnight),
-    Or(AKnave, BKnight),
     Implication(AKnight, And(AKnave, BKnave)),
     # Implication(AKnave, Or(And(AKnight, BKnave), And(AKnave, BKnight)))
     Implication(AKnave, Not(And(AKnave, BKnave)))
@@ -49,8 +47,6 @@ knowledge2 = And(
     Not(And(AKnight, AKnave)),
     Or(BKnight, BKnave),
     Not(And(BKnight, BKnave)),
-    Or(AKnight, BKnight),
-    Or(AKnave, BKnave),
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
     # Implication(AKnave, Or(And(AKnave, BKnight), And(AKnight, BKnave))),
     Implication(AKnave, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
@@ -72,8 +68,6 @@ knowledge3 = And(
     Not(And(BKnight, BKnave)),
     Or(CKnight, CKnave),
     Not(And(CKnight, CKnave)),
-    Or(AKnight, BKnight, CKnight),
-    Or(AKnave, BKnave, CKnave),
     Implication(BKnight, And(
        Implication(AKnave, AKnight), Implication(AKnight, Not(AKnave))
     )),
@@ -88,19 +82,6 @@ knowledge3 = And(
 
 )
 
-# Puzzle 4
-"""
-A says B is a knight
-B says The two of us are opposite types
-"""
-knowledge4 = And(
-    And(Or(AKnight, AKnave), Not(And(AKnight, AKnave))),
-    And(Or(BKnight, BKnave), Not(And(BKnight, BKnave))),
-    Implication(AKnight, BKnight),
-    Implication(AKnave, Not(BKnight)),
-    Implication(BKnight, Or(And(AKnight, BKnave), And(AKnave, BKnight))),
-    Implication(BKnave, Not(Or(And(AKnight, BKnave), And(AKnave, BKnight))))
-)
 
 def main():
     symbols = [AKnight, AKnave, BKnight, BKnave, CKnight, CKnave]
@@ -109,7 +90,6 @@ def main():
         ("Puzzle 1", knowledge1),
         ("Puzzle 2", knowledge2),
         ("Puzzle 3", knowledge3),
-        ("Puzzle 4", knowledge4)
     ]
     for puzzle, knowledge in puzzles:
         print(puzzle)

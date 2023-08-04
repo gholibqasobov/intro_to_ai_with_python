@@ -77,7 +77,6 @@ class Maze():
 
         self.solution = None
 
-
     def print(self):
         solution = self.solution[1] if self.solution is not None else None
         print()
@@ -96,7 +95,6 @@ class Maze():
             print()
         print()
 
-
     def neighbors(self, state):
         row, col = state
         condidates = [
@@ -113,7 +111,6 @@ class Maze():
                 result.append((action, (r, c)))
             return result
 
-
     def solve(self):
         self.num_explored = 0
 
@@ -122,9 +119,7 @@ class Maze():
         frontier = StackFrontier()
         frontier.add(start)
 
-
         self.explored = set()
-
 
         while True:
             if frontier.empty():
@@ -153,9 +148,3 @@ class Maze():
                 if not frontier.contains_state(state) and state not in self.explored:
                     child = Node(state=state, parent=node, action=action)
                     frontier.add(child)
-
-
-
-
-
-

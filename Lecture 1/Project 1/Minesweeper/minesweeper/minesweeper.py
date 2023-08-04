@@ -226,23 +226,23 @@ class MinesweeperAI():
         changed_knowledge = True
         while changed_knowledge:
             changed_knowledge = False
-            safes = set()
-            mines = set()
+            safe_cells = set()
+            mine_cells = set()
             for sentence in self.knowledge:
-                safes = safes.union(sentence.known_safes())
-                mines = mines.union(sentence.known_mines())
+                safe_cells = safe_cells.union(sentence.known_safes())
+                mine_cells = mine_cells.union(sentence.known_mines())
 
-            if safes:
+            if safe_cells:
                 changed_knowledge = True
-                for safe in safes:
+                for safe in safe_cells:
                     self.mark_safe(safe)
 
-            if mines:
+            if mine_cells:
                 changed_knowledge = True
-                for mine in mines:
+                for mine in mine_cells:
                     self.mark_mine(mine)
 
-            self.knowledge[:] = [sentence for sentence in self.knowledge if sentence != Sentence(set(), 0)]
+            self.knowledge = [sentence for sentence in self.knowledge if sentence != Sentence(set(), 0)]
 
             for sentence_1 in self.knowledge:
                 for sentence_2 in self.knowledge:
@@ -297,12 +297,12 @@ class MinesweeperAI():
         spaces_left = (self.height * self.width) - (len(self.moves_made) + len(self.mines))
         if spaces_left == 0:
             return None
-        basic_prob = mines_left/spaces_left
+        probability = mines_left/spaces_left
 
         for i in range(self.height):
             for j in range(self.width):
                 if (i, j) not in self.moves_made and (i, j) not in self.mines:
-                    moves[(i, j)] = basic_prob
+                    moves[(i, j)] = probability
 
         # if knowledge base is empty meaning the first move
         if moves and not self.knowledge:
@@ -314,16 +314,16 @@ class MinesweeperAI():
             for sentence in self.knowledge:
                 cell_num = len(sentence.cells)
                 count = sentence.count
-                mine_prob = count/cell_num
+                mine_probability = count/cell_num
                 for cell in sentence.cells:
-                    if moves[cell] < mine_prob:
-                        moves[cell] = mine_prob
+                    if moves[cell] < mine_probability:
+                        moves[cell] = mine_probability
 
             move_list = [[x, moves[x]] for x in moves]
             move_list.sort(key=lambda x: x[1])
-            best_prob = move_list[0][1]
+            best_probability = move_list[0][1]
 
-            best_moves = [x for x in move_list if x[1] == best_prob]
+            best_moves = [x for x in move_list if x[1] == best_probability]
 
             move = random.choice(best_moves)[0]
             return move
