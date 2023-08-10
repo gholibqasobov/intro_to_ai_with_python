@@ -1,0 +1,122 @@
+Conditional Probability
+
+P(a|b) = P(a and b)/P(b)
+
+Given clouds in the morning, what's the probability of rain in the afternoon?
+
+* 80% of rainy afternoons start with cloudy mornings
+* 40% of days have cloudy mornings
+* 10% of days have rainy afternoons
+
+P(rain|clouds) = P(clouds|rain)P(rain)/P(clouds)
+
+= 0.8 * 0.1 / 0.4 = 0.2
+
+Knowing
+P(cloudy morning | rainy afternoon)
+P(visible effect | unknown cause)
+P(medical test result | decease)
+
+we can calculate
+P(rainy afternoon | cloudy morning)
+P(unknown cause | visible effect)
+P(decease | medical test result)
+
+
+
+
+______________________________________________________________________________________________________
+
+Prob Models
+
+* Bayesian network -> data structure that represents the dependencies among random variables
+
+
+* directed graph
+* each node represents a random variable
+* arrow from node X to node Y, meaning X is a parent of Y
+* each node X has probability distribution P(X | Parents(X))
+
+
+_____________
+Inference
+-------------
+
+* Query X: variable for which to compute distribution. Ex P(light rain)
+* Evidence variable E: observed variables for event "e"
+* Hidden variables Y: non-evidence, non-query variables.
+
+* Goal: Calculate P(X|e)
+
+
+_____________________________________________________________________________________________
+Inference by Enumeration
+
+P (X | e) = alpha * P(X, e) = alpha * sum(P(X, e, y) # sum of y
+
+X -> query variable
+e -> evidence
+y -> values of hidden variables
+alpha -> normalizes the result
+
+
+_____________________________________________________________________________________________
+Approximate Inference
+
+one method: sampling
+In sampling it randomly chooses different probabilities and creates samples from it.
+and approximates the probability by them.
+Ex, if P(train = on time) it looks at all the samples where the train is on time, and divides by total number of samples
+
+
+_____________________________________________________________________________________________
+Likelihood Weighting
+
+
+* Start by fixing the values for evidence variables.
+* Sample the non-evidence variables using conditional probabilities in the Bayesian Network
+* Wight each sample by its **likelihood**: the probability of all the evidence.
+
+
+
+
+Uncertainty over time
+_______________________________________________________________________________________________
+Markov assumption
+* the assumption that the current state depends on only a finite fixed number of previous states
+
+Markov chain
+* a sequence of random variables where the distribution of each variable follows the Markov assumption
+
+
+  Hidden State    |    Observation
+------------------------------------------
+robot's position  |  robot's sensor data
+words spoken      |  audio waveforms
+user engagement   |  web or app analytics
+weather           | umbrella
+
+
+Hidden Markov Model HMM
+
+a Markov model for a system with hidden states that generate some observed data
+
+
+
+sensor Markov assumption
+------------------------
+
+* the assumption that the evidence variable depends only on the corresponding state
+
+
+
+  Task      |  Definition
+------------------------------------------------------------------------------------------------
+filtering   | given observations from start until now, calculate distribution for current state
+prediction  | given observations from start until now, calculate distribution for future state
+smoothing   | given observations from start until now, calculate distribution for past state
+most likely | given observations from start until now, calculate most likely sequence of states
+explanation |
+
+
+
